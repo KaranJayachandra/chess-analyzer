@@ -32,5 +32,7 @@ def makePlot(evaluations, descriptions):
         pyplot.plot(range(len(evaluation)), evaluation, label = description)
     pyplot.legend()
     pyplot.grid(which='both', axis='both')
+    pyplot.xlabel('Moves')
+    pyplot.ylabel('Centipawn')
     pyplot.ylim((-10000, 10000))
     pyplot.show()
