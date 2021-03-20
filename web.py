@@ -2,7 +2,9 @@ from requests import get
 import chess.pgn
 import os
 
-def getGames(userName, currentPeriod, fileName):
+def getGames(userName, gamesDate, fileName):
+    currentPeriod = gamesDate.strftime("%Y")+'/'+gamesDate.strftime("%m")
+    currentDate = gamesDate.strftime("%Y.%m.%d")
     startString = 'https://api.chess.com/pub/player/' + userName + '/games/'
     endString = '/pgn'
     requestString = startString + currentPeriod + endString
@@ -10,6 +12,7 @@ def getGames(userName, currentPeriod, fileName):
     outputFile = open(fileName, 'w')
     outputFile.write(response.text)
     outputFile.close()
+    cleanGames(currentDate, fileName)
 
 def cleanGames(currentDate, fileName):
     currentGames = []

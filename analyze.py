@@ -1,7 +1,7 @@
 import chess
 import chess.pgn
 import chess.engine
-import matplotlib.pyplot as pyplot
+import matplotlib
 
 def evalGame(game, evalDepth):
     engine = chess.engine.SimpleEngine.popen_uci('stockfish')
@@ -25,6 +25,7 @@ def analyzeGames(fileName, evalDepth):
             evaluations.append(evalGame(game, evalDepth))
     return evaluations
 
+'''
 def makePlot(evaluations, descriptions):
     for index in range(len(evaluations)):
         evaluation = evaluations[index]
@@ -36,3 +37,18 @@ def makePlot(evaluations, descriptions):
     pyplot.ylabel('Centipawn')
     pyplot.ylim((-10000, 10000))
     pyplot.show()
+'''
+
+def getPlot(evaluations, descriptions):
+    plotFigure = matplotlib.figure.Figure(figsize=(5, 5), dpi=100)
+    pyplot = plotFigure.add_subplot(111)
+    for index in range(len(evaluations)):
+        evaluation = evaluations[index]
+        description = descriptions[index]
+        pyplot.plot(range(len(evaluation)), evaluation, label = description)
+    pyplot.legend()
+    pyplot.grid(which='both', axis='both')
+    pyplot.set_xlabel('Moves')
+    pyplot.set_ylabel('Centipawn')
+    pyplot.set_ylim((-10000, 10000))
+    return plotFigure
