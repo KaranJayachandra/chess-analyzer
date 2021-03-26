@@ -1,6 +1,6 @@
 from requests import get
-import chess.pgn
-import os
+from chess import pgn
+from os import remove, path
 
 def getGames(userName, gamesDate, fileName):
     currentPeriod = gamesDate.strftime("%Y")+'/'+gamesDate.strftime("%m")
@@ -16,25 +16,25 @@ def getGames(userName, gamesDate, fileName):
 
 def cleanGames(currentDate, fileName):
     currentGames = []
-    pgn = open(fileName)
+    pgnFile = open(fileName)
     while True:
-        game = chess.pgn.read_game(pgn)
+        game = pgn.read_game(pgnFile)
         if game == None:
             break 
         else:
             if game.headers["Date"] == currentDate:
                 currentGames.append(game)
-    pgn.close()
-    if os.path.exists(fileName):
-        os.remove(fileName)
+    pgnFile.close()
+    if path.exists(fileName):
+        remove(fileName)
     for game in currentGames:
         print(game, file=open(fileName, 'a'), end='\n\n')
 
 def getDescription(fileName):
     currentGames = []
-    pgn = open(fileName)
+    pgnFile = open(fileName)
     while True:
-        game = chess.pgn.read_game(pgn)
+        game = pgn.read_game(pgnFile)
         if game == None:
             break
         else:
@@ -42,5 +42,5 @@ def getDescription(fileName):
             black = game.headers["Black"]
             description = white + ' vs. ' + black
             currentGames.append(description)
-    pgn.close()
+    pgnFile.close()
     return currentGames

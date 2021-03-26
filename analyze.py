@@ -25,21 +25,7 @@ def analyzeGames(fileName, evalDepth):
             evaluations.append(evalGame(game, evalDepth))
     return evaluations
 
-'''
-def makePlot(evaluations, descriptions):
-    for index in range(len(evaluations)):
-        evaluation = evaluations[index]
-        description = descriptions[index]
-        pyplot.plot(range(len(evaluation)), evaluation, label = description)
-    pyplot.legend()
-    pyplot.grid(which='both', axis='both')
-    pyplot.xlabel('Moves')
-    pyplot.ylabel('Centipawn')
-    pyplot.ylim((-10000, 10000))
-    pyplot.show()
-'''
-
-def getPlot(evaluations, descriptions):
+def getDayPlot(evaluations, descriptions):
     plotFigure = matplotlib.figure.Figure(figsize=(5, 5), dpi=100)
     pyplot = plotFigure.add_subplot(111)
     for index in range(len(evaluations)):
